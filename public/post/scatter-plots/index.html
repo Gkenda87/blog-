@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Scatter Plots </title>
+        <style>
+
+    html body {
+        font-family: Raleway, sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: red;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script> 
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.27.1" />
+        
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+
+            <div class="container">
+
+                <div class="navbar-header">
+
+                    <a class="navbar-brand visible-xs" href="#">Scatter Plots </a>
+
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <div class="collapse navbar-collapse">
+
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/post/">Posts</a></li>
+                            
+                        </ul>
+                    
+
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:gkenda87@lakers.mercyhurst.edu"><i class="fa fa-envelope-o"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/gkenda87/"><i class="fa fa-github"></i></a></li>
+                            
+                        </ul>
+                    
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+<main>
+
+    <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/scatter-plots/">Scatter Plots </a></h4>
+    <h5>September 21, 2017</h5>
+     <kbd class="item-tag">scatter plot</kbd> 
+
+</div>
+
+
+    <br> <div class="text-justify"><pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.4.1</code></pre>
+<p>Let’s generate some random points:</p>
+<pre class="r"><code>x&lt;-rnorm(100,5,2)
+y&lt;-rnorm(100,2*x+1,2)</code></pre>
+<p>Now, let’s make a data frame:</p>
+<pre class="r"><code>df&lt;-data.frame(x,y)
+
+df</code></pre>
+<pre><code>##              x         y
+## 1    4.9194626  8.243332
+## 2    4.7293261  9.952396
+## 3    5.8235634 11.719549
+## 4    4.2718672  8.019762
+## 5    5.7202637 15.852030
+## 6    5.1102652 10.113436
+## 7    7.1442595 16.487903
+## 8    2.8720582  6.066399
+## 9    6.7756064 16.000371
+## 10   4.8491535 10.127459
+## 11   8.4311340 15.820552
+## 12   3.8796015  5.668934
+## 13   8.1380071 17.060519
+## 14   4.9896486 11.842124
+## 15   3.4972019  6.970319
+## 16  -0.3536143  2.979696
+## 17   5.1985974 11.638139
+## 18   7.5113736 17.331874
+## 19   5.6454236 13.572849
+## 20   4.4821626 10.637037
+## 21   5.7049780 16.341461
+## 22   6.0227049 10.064455
+## 23   0.9552370  3.908836
+## 24   2.9431207  6.420959
+## 25   3.9379308  6.927384
+## 26   3.1716835  7.801527
+## 27   7.3371437 12.967597
+## 28   2.9772314  7.409828
+## 29   8.1191460 16.691476
+## 30   6.6788477 10.736694
+## 31   4.3819775 11.581477
+## 32   5.9763949 14.871235
+## 33   4.9762174  8.954283
+## 34   4.2726285 11.004214
+## 35   4.8237046 10.918512
+## 36   4.1581388  9.186518
+## 37   3.0575988 11.490811
+## 38   3.2292178  7.192424
+## 39   0.5543831  1.197979
+## 40   6.9016442 15.881503
+## 41   3.6141250  7.697312
+## 42   2.3229726  3.143295
+## 43   8.7641690 18.356053
+## 44   5.1788839 13.004248
+## 45   6.0036730 11.877189
+## 46   2.5007585  3.162615
+## 47   5.3295254 11.323024
+## 48   4.4062596 10.319951
+## 49   4.1082330 11.869268
+## 50   4.8662152  7.307515
+## 51   6.8652348 11.300336
+## 52   7.7309627 15.632316
+## 53   4.3161402 10.130081
+## 54   9.3423179 18.119485
+## 55   3.8550381  8.289504
+## 56   3.5130101  5.756051
+## 57   7.0020365 10.492313
+## 58   0.4733958  2.771908
+## 59   5.7334385 12.589450
+## 60   8.7212947 22.401317
+## 61   6.2254543 10.145445
+## 62   3.4390921  6.131561
+## 63   5.7873551 10.288919
+## 64  11.4255956 22.215516
+## 65   3.9720998 11.584813
+## 66   4.1786715 10.613713
+## 67   7.0838992 14.240846
+## 68   2.5423505  9.640963
+## 69   1.4862297  2.913779
+## 70   7.2255274 13.481822
+## 71   7.3683614 16.406244
+## 72   2.8297204  8.293560
+## 73   8.7927143 17.404833
+## 74   5.7779882 15.581620
+## 75   5.1508546 11.783310
+## 76   4.6935331 12.168209
+## 77   1.3204120  2.304088
+## 78   7.0813752 16.285285
+## 79   2.7987646  7.403826
+## 80   2.3895001  1.926160
+## 81   4.1687511  8.739369
+## 82   3.9523294  7.553870
+## 83   3.3299827  3.622001
+## 84   4.1243496  6.042366
+## 85   5.8978929  7.679979
+## 86  10.5005142 22.802701
+## 87   5.5224384 14.459159
+## 88   4.9597222 12.024941
+## 89   3.9640250  9.033859
+## 90  10.8136043 21.122664
+## 91   5.2705436 10.004704
+## 92   6.9965502 14.467399
+## 93   4.0681258  6.883983
+## 94   6.4651505 12.323785
+## 95   5.1076830  9.369991
+## 96   3.9666709  8.918830
+## 97   7.4790332 12.107389
+## 98   4.7210380  9.952490
+## 99   2.9043204  5.122783
+## 100  5.9563300 13.803372</code></pre>
+<p>Finally, the plot:</p>
+<pre class="r"><code>ggplot()+
+geom_point(data=df,aes(x,y))</code></pre>
+<p><img src="/post/2017-09-21-scatter-plots_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+
+    
+    
+
+    
+
+    
+
+</main>
+
+        <footer>
+
+            <p class="copyright text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a></p>
+
+        </footer>
+
+    </body>
+
+</html>
+
